@@ -1,3 +1,4 @@
+VERSION?=$(shell cat VERSION)
 ARGOCD_PORT=6567
 
 .PHONY: crd install uninstall uncrd tag untag
