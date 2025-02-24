@@ -1,7 +1,7 @@
 VERSION?=$(shell cat VERSION)
 ARGOCD_PORT=6567
 
-.PHONY: crd install uninstall uncrd tag untag
+.PHONY: crd install local uninstall uncrd tag untag
 
 crd:
 	kubectl create -k crd/
@@ -11,6 +11,7 @@ install:
 	kubectl apply -n argocd -k resources/
 
 local:
+	kubectx dosker-desktop
 	@echo "u/p u: admin p;"
 	@kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 	@echo "\n"
