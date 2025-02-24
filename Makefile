@@ -4,11 +4,11 @@ ARGOCD_PORT=6567
 .PHONY: crd install uninstall uncrd tag untag
 
 crd:
-	kubectl create -f crd.yaml
+	kubectl create -k crd/
 
 install:
 	kubectl create namespace argocd
-	kubectl apply -n argocd -f resources.yaml
+	kubectl apply -n argocd -k resources/
 
 local:
 	@echo "u/p u: admin p;"
@@ -18,11 +18,11 @@ local:
 	kubectl port-forward -n argocd service/argocd-server ${ARGOCD_PORT}:http
 
 uninstall:
-	kubectl delete -n argocd -f resources.yaml
+	kubectl delete -n argocd -k resources/
 	kubectl delete namespace argocd
 
 uncrd:
-	kubectl delete -f crd.yaml
+	kubectl delete -k crd/
 
 tag:
 	-git tag -a $(VERSION) -m "Version $(VERSION)"
