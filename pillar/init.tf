@@ -36,7 +36,7 @@ terraform {
 }
 
 data "digitalocean_kubernetes_cluster" "cluster" {
-  name = "{{ cluster }} "
+  name = "{{ cluster }}"
 }
 
 provider "kubernetes" {
@@ -56,5 +56,5 @@ provider "kubernetes" {
 
 provider "kustomization" {
   kubeconfig_path = "~/.kube/config"
-  context = "{{ cluster }} "
+  context = "{{ cluster }}"
 }
