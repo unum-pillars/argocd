@@ -1,5 +1,5 @@
 VERSION?=$(shell cat VERSION)
-ARGOCD_PORT=6567
+LOCAL_PORT=6535
 
 .PHONY: crd install local uninstall uncrd tag untag
 
@@ -15,8 +15,8 @@ local:
 	@echo "u/p u: admin p;"
 	@kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 	@echo "\n"
-	@open "http://localhost:${ARGOCD_PORT}"
-	kubectl port-forward -n argocd service/argocd-server ${ARGOCD_PORT}:http
+	@open "http://localhost:${LOCAL_PORT}"
+	kubectl port-forward -n argocd service/argocd-server ${LOCAL_PORT}:http
 
 uninstall:
 	kubectl delete -n argocd -k resources/
