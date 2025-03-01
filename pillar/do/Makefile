@@ -5,6 +5,7 @@ tfenv:
 	tfenv use 1.10.5
 
 init: tfenv
+	source ~/.secret/do_tf.sh
 	terraform init
 
 remote:

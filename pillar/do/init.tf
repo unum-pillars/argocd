@@ -8,7 +8,7 @@ terraform {
     }
 
     bucket = "unifist-terraform-state"
-    key    = "unifist/platform/clusters/{{ cluster }}/pillars/argocd"
+    key    = "unifist/platform/unums/{{ unum }}/pillars/argocd"
 
     # Deactivate a few AWS-specific checks
     skip_credentials_validation = true
@@ -36,7 +36,7 @@ terraform {
 }
 
 data "digitalocean_kubernetes_cluster" "cluster" {
-  name = "{{ cluster }}"
+  name = "do-{{ unum }}-unum"
 }
 
 provider "kubernetes" {
@@ -56,5 +56,5 @@ provider "kubernetes" {
 
 provider "kustomization" {
   kubeconfig_path = "~/.kube/config"
-  context = "{{ cluster }}"
+  context = "do-{{ unum }}-unum"
 }
