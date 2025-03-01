@@ -1,3 +1,4 @@
+CLUSTER="do-{{ unum }}-unum"
 ARGOCD_PORT=6567
 .PHONY: tfenv init remote install uninstall
 
@@ -8,7 +9,7 @@ init: tfenv
 	terraform init
 
 remote:
-	kubectx {{ cluster }}
+	kubectx ${CLUSTER}
 	@echo "u/p u: admin p;"
 	@kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 	@echo "\n"
