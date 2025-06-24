@@ -1,3 +1,7 @@
+locals {
+  cluster = "do-{{ unum }}-unum"
+}
+
 resource "kubernetes_namespace" "namespace" {
   metadata {
     name = "argocd"
@@ -5,12 +9,12 @@ resource "kubernetes_namespace" "namespace" {
 
   provisioner "local-exec" {
     when    = create
-    command = "kubectl create -k crd/"
+    command = "kubectl --context=${local.cluster} create -k crd/"
   }
 
   provisioner "local-exec" {
     when    = destroy
-    command = "kubectl delete -k crd/"
+    command = "kubectl --context=${local.cluster} delete -k crd/"
   }
 }
 

@@ -9,12 +9,11 @@ init: tfenv
 	terraform init
 
 remote:
-	kubectx ${CLUSTER}
 	@echo "u/p u: admin p;"
-	@kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+	@kubectl --context=${CLUSTER} -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 	@echo "\n"
 	@open "http://localhost:${LOCAL_PORT}"
-	kubectl port-forward -n argocd service/argocd-server ${LOCAL_PORT}:http
+	kubectl --context=${CLUSTER} port-forward -n argocd service/argocd-server ${LOCAL_PORT}:http
 
 install: init
 	terraform apply
